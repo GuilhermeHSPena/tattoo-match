@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  client
+  artist
+}
+
+enum RequestStatus {
+  pending
+  approved
+  rejected
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(client)
+  city         String?
+  instagram    String?
+  createdAt    DateTime @default(now())
+
+  tattoos  Tattoo[]
+  requests TattooRequest[]
+}
+
+model Tattoo {
+  id          Int      @id @default(autoincrement())
+  label       String
+  description String?
+  category    String?
+  size        String?
+  imageUrl    String
+  price       Decimal? @db.Decimal(10, 2)
+  artistId    Int
+  createdAt   DateTime @default(now())
+
+  artist   User            @relation(fields: [artistId], references: [id], onDelete: Cascade)
+  requests TattooRequest[]
+}
+
+model TattooRequest {
+  id        Int           @id @default(autoincrement())
+  clientId  Int
+  tattooId  Int
+  phone     String?
+  message   String?
+  status    RequestStatus @default(pending)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  client User   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  tattoo Tattoo @relation(fields: [tattooId], references: [id], onDelete: Cascade)
+}
