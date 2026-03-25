@@ -11,7 +11,7 @@ Aplicação web completa para conectar clientes e tatuadores. Projeto acadêmico
 - **Recharts** — gráficos do dashboard
 - **Jest** — testes unitários
 - **GitHub Actions** — integração contínua
-- **Vercel** — deploy (igual ao Mapa-Bateria)
+- **Vercel** — deploy
 
 ---
 
@@ -107,10 +107,9 @@ Os 16 testes cobrem: helpers da API (ok/err), validação de registro, validaç�
 
 ## Deploy no Vercel
 
-Idêntico ao Mapa-Bateria:
 
 1. Suba o código no GitHub
-2. No [vercel.com](https://vercel.com): **New Project** → importa o repositório
+2. No [vercel.com](https://vercel.com): **New Project** → importe o repositório
 3. Adicione as variáveis de ambiente:
 
 | Variável | Valor |
